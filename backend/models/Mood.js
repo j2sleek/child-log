@@ -1,9 +1,17 @@
 const mongoose = require('mongoose')
 
 const moodSchema = new mongoose.Schema({
- status: String,
+ status: {
+  type: String,
+  enum: ['happy', 'normal', 'sad'],
+  default: 'normal'
+ },
  time: Date,
- description: String, 
+ description: String,
+ child: {
+  type: mongoose.Schema.ObjectId,
+  ref: 'Child'
+ }
 })
 
 moodSchema.set('toJSON', {

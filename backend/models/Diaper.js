@@ -1,16 +1,17 @@
 const mongoose = require('mongoose')
 
 const diaperSchema = new mongoose.Schema({
- time: {
-   type: Date,
-   default: Date.now
- }
+ time: Date,
  reason: {
    type: String,
    enum: ['pee', 'poop'],
    default: 'pee'
  },
- info: String
+ info: String,
+ child: {
+  type: mongoose.Schema.ObjectId,
+  ref: 'Child'
+ }
 })
 
 diaperSchema.set('toJSON', {

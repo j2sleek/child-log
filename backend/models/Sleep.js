@@ -1,8 +1,12 @@
 const mongoose = require('mongoose')
 
 const sleepSchema = mongoose.Schema({
-  start_time: Date,
-  end_time: Date
+  startTime: Date,
+  endTime: Date,
+  child: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Child'
+  }
 })
 
 sleepSchema.set('toJSON', {
