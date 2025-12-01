@@ -57,3 +57,5 @@ userRouter.post('/', async (req, res) => {
     }
   }
 })
+
+module.exports = userRouter

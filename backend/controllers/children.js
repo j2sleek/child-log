@@ -243,3 +243,5 @@ childRouter.post('/:id/sleeps', async (req, res) => {
     })
   }
 })
+
+module.exports = childRouter
