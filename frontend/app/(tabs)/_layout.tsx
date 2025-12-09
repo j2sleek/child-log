@@ -1,68 +1,69 @@
-import { Tabs } from 'expo-router'
+import { useContext, useEffect } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { useRouter } from 'expo-router';
+import { Tabs } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { useAuth } from '@/src/context/AuthContext';
-import { Button } from 'react-native';
 
-export default function TabsLayout() {
-  const { signOut } = useAuth()
+export default function TabLayout() {
+  const { user, loading } = useContext(AuthContext);
+  const router = useRouter();
+  
+  useEffect(() => {
+    if (!loading && !user?.token) {
+      router.replace('/login')
+    }
+  }, [loading, user])
 
-  const handleLogout = async () => {
-    await signOut()
-    console.log('Logout successful. AuthNavigator will redirect now.')
+  if (loading) {
+    return null
   }
+
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: '#ffd33d',
         headerStyle: {
-          backgroundColor: '#25292e',
+          backgroundColor: '#25292e'
         },
         headerShadowVisible: false,
         headerTintColor: '#fff',
         tabBarStyle: {
-          backgroundColor: '#25292e',
+          backgroundColor: '#25292e'
         },
-        headerRight: () => (
-          <Button 
-            onPress={handleLogout} 
-            title='Log Out'
-            color='red'
-          />
-        )
       }}
     >
-      <Tabs.Screen 
-        name="index" 
-        options={{ 
+      <Tabs.Screen
+        name="index"
+        options={{
           title: 'Home',
-          tabBarIcon: ({color, focused}) => (
-            <Ionicons 
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
               name={focused 
-                ? 'home-sharp' 
+                ? 'home-sharp'
                 : 'home-outline'
               }
               color={color}
               size={24}
             />
-          ),
-        }} 
+          )
+        }}
       />
-      <Tabs.Screen 
-        name="record" 
-        options={{ 
+      <Tabs.Screen
+        name="record"
+        options={{
           title: 'Record',
-          tabBarIcon: ({color, focused}) => (
-            <Ionicons 
-              name={focused 
-                ? 'home-sharp' 
-                : 'home-outline'
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused
+                ? 'documents-sharp'
+                : 'documents-outline'
               }
               color={color}
               size={24}
             />
-          ),
-        }} 
+          )
+        }}
       />
     </Tabs>
-  );
+  )
 }

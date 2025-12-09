@@ -10,8 +10,8 @@ export default function Index() {
       <Text style={styles.text}>
         Home Screen.
       </Text>
-      <Link href="/profile" style={styles.button}>
-        Go To Profile Screen
+      <Link href="/record" style={styles.button}>
+        Go To Record Screen
       </Link>
     </View>
   );
